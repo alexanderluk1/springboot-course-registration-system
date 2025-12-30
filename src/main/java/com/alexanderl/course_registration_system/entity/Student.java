@@ -26,7 +26,7 @@ public class Student {
     @Column(name="date_of_birth", nullable = false)
     private LocalDate dateOfBirth;
 
-    @Column(name="student_status", nullable = false)
+    @Enumerated(EnumType.STRING)
     private StudentStatus status;
 
     public Student() {}

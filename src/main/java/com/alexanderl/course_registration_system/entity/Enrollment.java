@@ -11,19 +11,20 @@ public class Enrollment {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name="id", nullable = false)
     private long id;
 
-    @Column(name="student", nullable = false)
+    @ManyToOne
+    @JoinColumn(name="student_id", nullable = false)
     private Student student;
 
-    @Column(name="course", nullable = false)
+    @ManyToOne
+    @JoinColumn(name="course_id", nullable = false)
     private Course course;
 
     @Column(name="enrolled_at", nullable = false)
     private LocalDateTime enrolledAt;
 
-    @Column(name="enrollment_status", nullable = false)
+    @Enumerated(EnumType.STRING)
     private EnrollmentStatus status;
 
     @Column(name="grade")
