@@ -1,9 +1,10 @@
 package com.alexanderl.course_registration_system.service.impl;
 
-import com.alexanderl.course_registration_system.dao.StudentRepository;
+import com.alexanderl.course_registration_system.dao.*;
 import com.alexanderl.course_registration_system.entity.Student;
 import com.alexanderl.course_registration_system.enums.StudentStatus;
 import com.alexanderl.course_registration_system.service.StudentService;
+import jakarta.transaction.Transactional;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -12,9 +13,11 @@ import java.util.List;
 public class StudentServiceImpl implements StudentService {
 
     StudentRepository studentRepository;
+    EnrollmentRepository enrollmentRepository;
 
-    public StudentServiceImpl(StudentRepository studentRepository) {
+    public StudentServiceImpl(StudentRepository studentRepository, EnrollmentRepository enrollmentRepository) {
         this.studentRepository = studentRepository;
+        this.enrollmentRepository = enrollmentRepository;
     }
 
     @Override
@@ -48,7 +51,13 @@ public class StudentServiceImpl implements StudentService {
     }
 
     @Override
+    @Transactional
     public void deleteStudent(Long id) {
+        Student existing = studentRepository.findById(id)
+                .orElseThrow(() -> new RuntimeException("Student not found"));
 
+        // TODO: Check enrollmentRepo if student exist to handle delete
+
+//        studentRepository.delete(existing);
     }
 }
